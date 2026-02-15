@@ -1,0 +1,13 @@
+/*Site colors*/
+:root{
+  --primary-color:black;
+  --secondary-color:#0d6efd;
+}
+
+/*Hero section-->Gradient primary-secondary,text-white allignment-center padding*/
+.hero-section{
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  color: white;
+  padding: 100px, 0px;
+  text-align: center;
+}

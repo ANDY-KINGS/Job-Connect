@@ -1,0 +1,29 @@
+### Register a new user
+POST http://localhost:5000/api/auth/register
+Content-Type: application/json
+
+{
+    "name": "John Doe",
+    "email": "john@example.com",
+    "password": "password123"
+}
+
+###
+
+### Login with the registered user
+# @name login
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+
+{
+    "email": "john@example.com",
+    "password": "password123"
+}
+
+###
+
+### Get jobs using the JWT token from login
+GET http://localhost:5000/api/jobs
+Authorization: Bearer {{login.response.body.token}}
+
+###
