@@ -1,11 +1,13 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: process.env.REACT_APP_API_URL || '/api',
+    baseURL: process.env.REACT_APP_API_URL,
     headers: {
         'Content-Type': 'application/json',
     },
 });
+
+console.log('API Base URL:', process.env.REACT_APP_API_URL);
 
 // Add a request interceptor to include authorization token
 api.interceptors.request.use(
