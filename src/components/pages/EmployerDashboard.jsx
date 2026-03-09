@@ -118,7 +118,7 @@ const EmployerDashboard = () => {
 
       {/* Sidebar */}
       <aside className={`
-        w-72 bg-gray-800/50 backdrop-blur-xl border-r border-gray-700/50 flex flex-col fixed h-full z-50 transition-transform duration-300
+        w-72 bg-gray-800/50 backdrop-blur-xl border-r border-gray-700/50 flex flex-col fixed h-full z-50 transition-transform duration-300 overflow-y-auto
         ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0
       `}>
         <div className="p-8">
@@ -176,19 +176,20 @@ const EmployerDashboard = () => {
             <span className="font-medium">Applicants</span>
           </button>
 
-        </nav>
+          <div className="pt-4 mt-6 border-t border-gray-700/50">
+            <button
+              onClick={() => {
+                logout();
+                navigate('/login');
+              }}
+              className="w-full flex items-center px-6 py-4 rounded-2xl transition-all duration-300 group text-red-400 hover:bg-red-500/10 hover:border-red-500/50 border border-red-500/20 shadow-[0_0_20px_rgba(239,68,68,0.05)]"
+            >
+              <span className="w-2 h-2 rounded-full mr-4 bg-red-500 shadow-[0_0_10px_#ef4444]"></span>
+              <span className="font-medium font-bold">Log Out</span>
+            </button>
+          </div>
 
-        <div className="p-6 mt-auto border-t border-gray-700/50">
-          <button
-            onClick={() => {
-              logout();
-              navigate('/login');
-            }}
-            className="w-full py-3 px-4 rounded-2xl border border-red-500/20 text-red-400 hover:bg-red-500/10 hover:border-red-500/50 transition-all duration-300 text-sm font-semibold tracking-wide flex items-center justify-center gap-2 group"
-          >
-            Log Out
-          </button>
-        </div>
+        </nav>
       </aside>
 
       {/* Main Content */}

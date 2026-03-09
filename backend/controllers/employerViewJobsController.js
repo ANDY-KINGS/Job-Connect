@@ -10,6 +10,7 @@ export const getAllJobsEmployer = async (req, res) => {
         res.json(jobs);
 
     } catch (error) {
-        res.status(500).json({ message: "Failed to fetch jobs" });
+        console.error("EmployerViewAllJobs Error:", error);
+        res.status(500).json({ message: "Failed to fetch jobs", error: error.message });
     }
 };

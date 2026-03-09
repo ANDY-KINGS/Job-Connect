@@ -44,7 +44,7 @@ const AdminDashboard = () => {
 
             {/* Sidebar */}
             <aside className={`
-                w-72 bg-gray-800/50 backdrop-blur-xl border-r border-gray-700/50 flex flex-col fixed h-full z-50 transition-transform duration-300
+                w-72 bg-gray-800/50 backdrop-blur-xl border-r border-gray-700/50 flex flex-col fixed h-full z-50 transition-transform duration-300 overflow-y-auto
                 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0
             `}>
                 <div className="p-8">
@@ -62,13 +62,17 @@ const AdminDashboard = () => {
                                 <span className="capitalize font-semibold">{tab}</span>
                             </button>
                         ))}
-                    </div>
-                </div>
 
-                <div className="p-6 mt-auto border-t border-gray-700/50">
-                    <button onClick={() => { logout(); navigate('/login'); }} className="w-full py-3 px-4 rounded-2xl border border-red-500/20 text-red-400 hover:bg-red-500/10 hover:border-red-500/50 transition-all font-bold">
-                        Sign Out
-                    </button>
+                        <div className="pt-4 mt-4 border-t border-gray-700/50">
+                            <button
+                                onClick={() => { logout(); navigate('/login'); }}
+                                className="w-full flex items-center px-6 py-4 rounded-2xl border border-red-500/20 text-red-400 hover:bg-red-500/10 hover:border-red-500/50 transition-all duration-300 font-bold"
+                            >
+                                <span className="w-2 h-2 rounded-full mr-4 bg-red-500 shadow-[0_0_10px_#ef4444]"></span>
+                                Sign Out
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </aside>
 

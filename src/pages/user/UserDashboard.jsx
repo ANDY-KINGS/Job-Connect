@@ -155,7 +155,7 @@ const UserDashboard = () => {
 
             {/* Sidebar */}
             <aside className={`
-                w-72 bg-gray-800/50 backdrop-blur-xl border-r border-gray-700/50 flex flex-col fixed h-full z-50 transition-transform duration-300
+                w-72 bg-gray-800/50 backdrop-blur-xl border-r border-gray-700/50 flex flex-col fixed h-full z-50 transition-transform duration-300 overflow-y-auto
                 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0
             `}>
                 <div className="p-8">
@@ -194,16 +194,17 @@ const UserDashboard = () => {
                             <span className="font-medium text-sm">{item.label}</span>
                         </button>
                     ))}
-                </nav>
 
-                <div className="p-6 mt-auto border-t border-gray-700/50">
-                    <button
-                        onClick={handleLogout}
-                        className="w-full py-3 px-4 rounded-2xl border border-red-500/20 text-red-400 hover:bg-red-500/10 hover:border-red-500/50 transition-all duration-300 text-sm font-semibold tracking-wide flex items-center justify-center gap-2 group"
-                    >
-                        Sign Out
-                    </button>
-                </div>
+                    <div className="pt-4 mt-4 border-t border-gray-700/50">
+                        <button
+                            onClick={handleLogout}
+                            className="w-full flex items-center px-6 py-4 rounded-2xl border border-red-500/20 text-red-400 hover:bg-red-500/10 hover:border-red-500/50 transition-all duration-300 font-semibold"
+                        >
+                            <span className="w-2 h-2 rounded-full mr-4 bg-red-500 shadow-[0_0_10px_#ef4444]"></span>
+                            Sign Out
+                        </button>
+                    </div>
+                </nav>
             </aside>
 
             {/* Main Content Area */}
@@ -216,6 +217,20 @@ const UserDashboard = () => {
                             Welcome back, <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-purple-400">{user?.name?.split(' ')[0] || 'Explorer'}</span>
                         </h2>
                         <p className="text-base sm:text-lg lg:text-xl text-gray-400">Find jobs that match your skills and interests</p>
+                    </div>
+
+                    {/* Stats Section */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+                        {stats.map((stat, i) => (
+                            <div key={i} className={`w-full min-h-[160px] bg-gray-800/40 backdrop-blur-md p-6 rounded-3xl border border-gray-700/50 hover:border-${stat.color === 'cyan' ? 'cyan-500/30' : 'purple-500/30'} transition-all duration-300 group relative overflow-hidden flex flex-col justify-between`}>
+                                <div className={`absolute inset-0 bg-gradient-to-br from-${stat.color}-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+                                <div className="relative z-10">
+                                    <p className="text-gray-400 font-medium mb-1 text-sm sm:text-base lg:text-lg">{stat.label}</p>
+                                    <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-1">{stat.count}</h3>
+                                    <div className={`h-1 w-12 bg-${stat.color}-500 rounded-full mt-4 group-hover:w-24 transition-all duration-500`} />
+                                </div>
+                            </div>
+                        ))}
                     </div>
 
                     {/* Search and Filter Section */}
@@ -316,19 +331,7 @@ const UserDashboard = () => {
                         </div>
                     )}
 
-                    {/* Stats Section */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-                        {stats.map((stat, i) => (
-                            <div key={i} className={`w-full min-h-[160px] bg-gray-800/40 backdrop-blur-md p-6 rounded-3xl border border-gray-700/50 hover:border-${stat.color === 'cyan' ? 'cyan-500/30' : 'purple-500/30'} transition-all duration-300 group relative overflow-hidden flex flex-col justify-between`}>
-                                <div className={`absolute inset-0 bg-gradient-to-br from-${stat.color}-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
-                                <div className="relative z-10">
-                                    <p className="text-gray-400 font-medium mb-1 text-sm sm:text-base lg:text-lg">{stat.label}</p>
-                                    <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-1">{stat.count}</h3>
-                                    <div className={`h-1 w-12 bg-${stat.color}-500 rounded-full mt-4 group-hover:w-24 transition-all duration-500`} />
-                                </div>
-                            </div>
-                        ))}
-                    </div>
+
 
                     {/* Job Exploration - Only show when jobs are available */}
                     {!loading && !error && jobs.length > 0 && (

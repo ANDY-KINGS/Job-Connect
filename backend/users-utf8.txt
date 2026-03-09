@@ -1,0 +1,10 @@
+Total users: 9
+Email: andy@gmail.com, Role: jobseeker
+Email: kaido@gmail.com, Role: jobseeker
+Email: baki@gmail.com, Role: jobseeker
+Email: luffy@gmail.com, Role: employer
+Email: andy@test.com, Role: undefined
+Email: john@example.com, Role: undefined
+Email: cid@gmail.com, Role: job_seeker
+Email: ichigo@gmail.com, Role: employer
+Email: zoro@gmail.com, Role: employer
