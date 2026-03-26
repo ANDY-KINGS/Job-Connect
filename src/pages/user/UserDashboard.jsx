@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
-import axios from 'axios';
+import api from '../../services/api';
 
 // Custom mini component for a futuristic Job Card
 const JobCard = ({ job }) => (
@@ -46,7 +46,7 @@ const UserDashboard = () => {
         const fetchJobs = async () => {
             try {
                 setLoading(true);
-                const res = await axios.get('/api/jobs');
+                const res = await api.get('/jobs');
                 setJobs(res.data);
                 setError(null);
             } catch (err) {
@@ -76,9 +76,7 @@ const UserDashboard = () => {
         const fetchStats = async () => {
             try {
                 const token = localStorage.getItem('token');
-                const res = await axios.get('/api/dashboard/stats', {
-                    headers: { Authorization: `Bearer ${token}` }
-                });
+                const res = await api.get('/dashboard/stats');
 
                 const { applicationsCount, interviewsCount, savedJobsCount } = res.data;
 

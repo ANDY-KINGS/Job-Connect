@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import axios from 'axios';
+import api from '../../services/api';
 import { useNavigate, Link } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 import './LoginPage.css';
@@ -18,7 +18,7 @@ const LoginPage = () => {
     setLoading(true);
     setError(null);
     try {
-      const res = await axios.post('/api/auth/login', { email, password });
+      const res = await api.post('/auth/login', { email, password });
       const { token, user } = res.data;
       if (!token) throw new Error('No token');
       localStorage.setItem('token', token);

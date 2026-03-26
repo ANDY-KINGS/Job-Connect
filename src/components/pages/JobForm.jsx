@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import axios from 'axios';
+import api from '../../services/api';
 import { AuthContext } from '../../context/AuthContext';
 
 const JobForm = () => {
@@ -48,9 +48,7 @@ const JobForm = () => {
                     // THERE IS NO GET /:id defined in jobRoutes.js in Step 40!
 
                     // Workaround: Fetch all my jobs and find the one to edit.
-                    const res = await axios.get('/api/jobs/my-jobs', {
-                        headers: { Authorization: `Bearer ${token}` }
-                    });
+                    const res = await api.get('/jobs/my-jobs');
                     const job = res.data.find(j => j._id === id);
                     if (job) {
                         setForm({
@@ -83,13 +81,9 @@ const JobForm = () => {
 
         try {
             if (isEditMode) {
-                await axios.put(`/api/jobs/${id}`, form, {
-                    headers: { Authorization: `Bearer ${token}` }
-                });
+                await api.put(`/jobs/${id}`, form);
             } else {
-                await axios.post('/api/jobs', form, {
-                    headers: { Authorization: `Bearer ${token}` }
-                });
+                await api.post('/jobs', form);
             }
             navigate('/employer');
         } catch (err) {

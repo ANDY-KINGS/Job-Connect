@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../../services/api';
 import { AuthContext } from '../../context/AuthContext';
 
 const MyApplications = () => {
@@ -15,7 +15,7 @@ const MyApplications = () => {
         const fetchApplications = async () => {
             try {
                 setLoading(true);
-                const res = await axios.get('/api/applications/my');
+                const res = await api.get('/applications/my');
                 setApplications(res.data.applications);
                 setError(null);
             } catch (err) {

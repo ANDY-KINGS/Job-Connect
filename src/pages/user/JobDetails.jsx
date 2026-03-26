@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import axios from 'axios';
+import api from '../../services/api';
 import { AuthContext } from '../../context/AuthContext';
 
 const JobDetails = () => {
@@ -18,7 +18,7 @@ const JobDetails = () => {
         const fetchJobDetails = async () => {
             try {
                 setLoading(true);
-                const res = await axios.get(`/api/jobs/${id}`);
+                const res = await api.get(`/jobs/${id}`);
                 setJob(res.data);
                 setError(null);
             } catch (err) {
@@ -32,7 +32,7 @@ const JobDetails = () => {
         const checkApplicationStatus = async () => {
             try {
                 // Call check endpoint to see if user has already applied
-                const res = await axios.get(`/api/applications/check/${id}`);
+                const res = await api.get(`/applications/check/${id}`);
                 setHasApplied(res.data.applied);
             } catch (err) {
                 console.error('Error checking application status:', err);
@@ -57,7 +57,7 @@ const JobDetails = () => {
 
             // Send POST request to /api/applications
             // user_id will be extracted from auth session on backend
-            const res = await axios.post('/api/applications', {
+            const res = await api.post('/applications', {
                 job_id: id
             });
 

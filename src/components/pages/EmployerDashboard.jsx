@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../services/api';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 import DeleteJobButton from '../DeleteJobButton';
@@ -27,9 +27,7 @@ const EmployerDashboard = () => {
 
   const fetchJobs = async () => {
     try {
-      const res = await axios.get('/api/jobs/my-jobs', {
-        headers: { Authorization: `Bearer ${token}` }
-      });
+      const res = await api.get('/jobs/my-jobs');
       const jobData = res.data;
       setJobs(jobData);
 
@@ -55,9 +53,7 @@ const EmployerDashboard = () => {
   const fetchApplicants = async (jobId) => {
     try {
       setFetchingApplicants(true);
-      const res = await axios.get(`/api/applications/job/${jobId}`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
+      const res = await api.get(`/applications/job/${jobId}`);
       setApplicants(res.data.applications);
       setFetchingApplicants(false);
     } catch (err) {
@@ -79,9 +75,8 @@ const EmployerDashboard = () => {
         prev.map(app => app._id === applicationId ? { ...app, status: newStatus } : app)
       );
 
-      await axios.patch(`/api/applications/${applicationId}/status`,
-        { status: newStatus },
-        { headers: { Authorization: `Bearer ${token}` } }
+      await api.patch(`/applications/${applicationId}/status`,
+        { status: newStatus }
       );
     } catch (err) {
       console.error("Error updating status:", err);

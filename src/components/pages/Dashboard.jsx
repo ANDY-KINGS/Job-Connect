@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '../../services/api';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 
@@ -16,7 +16,7 @@ const Dashboard = () => {
   const fetchJobs = async (q = '') => {
     setLoading(true);
     try {
-      const res = await axios.get('/api/jobs' + (q ? `?search=${encodeURIComponent(q)}` : ''));
+      const res = await api.get('/jobs' + (q ? `?search=${encodeURIComponent(q)}` : ''));
       setJobs(res.data);
     } catch (err) {
       setError(err.response?.data?.message || 'Could not fetch jobs');
@@ -30,7 +30,7 @@ const Dashboard = () => {
   const handleCreate = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('/api/jobs', form);
+      const res = await api.post('/jobs', form);
       setJobs(prev => [res.data, ...prev]);
       setForm({ title: '', company: '', location: '', description: '', jobType: 'job' });
     } catch (err) {
@@ -46,7 +46,7 @@ const Dashboard = () => {
   const submitEdit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.put(`/api/jobs/${editingId}`, form);
+      const res = await api.put(`/jobs/${editingId}`, form);
       setJobs(prev => prev.map(j => j._id === editingId ? res.data : j));
       setEditingId(null);
       setForm({ title: '', company: '', location: '', description: '', jobType: 'job' });
@@ -58,7 +58,7 @@ const Dashboard = () => {
   const handleDelete = async (id) => {
     if (!window.confirm('Delete this job?')) return;
     try {
-      await axios.delete(`/api/jobs/${id}`);
+      await api.delete(`/jobs/${id}`);
       setJobs(prev => prev.filter(j => j._id !== id));
     } catch (err) {
       setError(err.response?.data?.message || 'Delete failed');
