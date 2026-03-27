@@ -41,7 +41,7 @@ const jobSchema = new mongoose.Schema(
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
-      required: true,
+      required: false,  // Optional — employer field already tracks ownership
     },
 
   },

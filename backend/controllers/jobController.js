@@ -141,6 +141,11 @@ export const updateJob = async (req, res) => {
     job.jobType = jobType || job.jobType;
     job.salary = salary || job.salary;
 
+    // Backfill createdBy for old jobs that predate this field
+    if (!job.createdBy) {
+      job.createdBy = job.employer;
+    }
+
     await job.save();
 
 
